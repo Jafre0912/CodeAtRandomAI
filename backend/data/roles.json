@@ -1,0 +1,5 @@
+{
+  "frontend developer": ["HTML", "CSS", "JavaScript", "React", "Git"],
+  "backend developer": ["Java", "Spring Boot", "SQL", "APIs", "Git"],
+  "data analyst": ["Excel", "SQL", "Python", "Dashboards", "Statistics"]
+}
