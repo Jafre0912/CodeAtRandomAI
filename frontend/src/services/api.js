@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5000/api';
+
+const API_BASE_URL = 'https://codeatrandomai.onrender.com/api';
+
 const HN_TOP_STORIES = 'https://hacker-news.firebaseio.com/v0/topstories.json';
 const HN_ITEM_URL = 'https://hacker-news.firebaseio.com/v0/item/';
 
@@ -20,11 +22,12 @@ export const getRoadmap = async (role) => {
 export const fetchTopStories = async () => {
   try {
     const { data: ids } = await axios.get(HN_TOP_STORIES);
-    const top6Ids = ids.slice(0, 6); 
-    const storyPromises = top6Ids.map(id => 
+    const top6Ids = ids.slice(0, 6);
+
+    const storyPromises = top6Ids.map(id =>
       axios.get(`${HN_ITEM_URL}${id}.json`)
     );
-    
+
     const storiesResponses = await Promise.all(storyPromises);
     return storiesResponses.map(res => res.data);
   } catch (error) {
