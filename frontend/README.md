@@ -2,8 +2,8 @@
 A full-stack application that helps developers analyze their skill gaps for specific roles (Frontend, Backend, Data Analyst) and generates a learning roadmap. It also integrates real-time tech news from HackerNews.
 
 ## Live Demo:
-
-
+https://code-at-random-ai.vercel.app/
+https://codeatrandomai.onrender.com/
 
 ## Tech Stack:-
 
