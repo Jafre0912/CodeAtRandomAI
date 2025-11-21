@@ -1,6 +1,4 @@
 const rolesData = require('../data/roles.json');
-
-// --- 1. Skill Gap Analyzer Logic ---
 const analyzeSkillGap = (req, res) => {
   try {
     const { role, skills } = req.body;
@@ -8,8 +6,6 @@ const analyzeSkillGap = (req, res) => {
     if (!role || !skills) {
       return res.status(400).json({ error: "Role and Skills are required." });
     }
-
-    // 1. Normalize Role Matching (Case Insensitive)
     const targetRoleKey = Object.keys(rolesData).find(
       (r) => r.toLowerCase() === role.toLowerCase().trim()
     );
@@ -21,16 +17,11 @@ const analyzeSkillGap = (req, res) => {
     }
 
     const requiredSkills = rolesData[targetRoleKey];
-    
-    // 2. Normalize User Skills
-    // Handle both array input or comma-separated string
     const userSkillsArray = Array.isArray(skills) 
       ? skills 
       : skills.split(',').map(s => s.trim());
     
     const userSkillsLower = userSkillsArray.map(s => s.toLowerCase());
-
-    // 3. Compare
     const matched_skills = requiredSkills.filter(skill => 
       userSkillsLower.includes(skill.toLowerCase())
     );
@@ -38,8 +29,6 @@ const analyzeSkillGap = (req, res) => {
     const missing_skills = requiredSkills.filter(skill => 
       !userSkillsLower.includes(skill.toLowerCase())
     );
-
-    // 4. Generate Recommendation
     let recommendation = "";
     if (missing_skills.length === 0) {
       recommendation = "You are fully qualified! Time to build a capstone project.";
@@ -48,13 +37,11 @@ const analyzeSkillGap = (req, res) => {
     } else {
       recommendation = "You have a solid start, but focus on the missing fundamentals before applying.";
     }
-
-    // 5. Return JSON strict format per assignment
     res.json({
       matched_skills,
       missing_skills,
       recommendations: recommendation,
-      suggested_learning_order: missing_skills // Simple logic: learn what is missing in order
+      suggested_learning_order: missing_skills 
     });
 
   } catch (error) {
@@ -63,7 +50,6 @@ const analyzeSkillGap = (req, res) => {
   }
 };
 
-// --- 2. Career Roadmap Logic (Mock AI) ---
 const generateRoadmap = (req, res) => {
   try {
     const { role } = req.body;
@@ -72,8 +58,6 @@ const generateRoadmap = (req, res) => {
 
     const normalizedRole = role.toLowerCase().trim();
     let roadmap = {};
-
-    // Mock Logic based on Role keyword
     if (normalizedRole.includes("backend")) {
       roadmap = {
         phase_1: { duration: "1–2 months", focus: "Java basics, OOP, Git" },
@@ -93,7 +77,6 @@ const generateRoadmap = (req, res) => {
         phase_3: { duration: "2 months", focus: "Tableau/PowerBI, Statistics" }
       };
     } else {
-      // Generic Fallback
       roadmap = {
         phase_1: { duration: "1 month", focus: "Computer Science Fundamentals" },
         phase_2: { duration: "2 months", focus: `Core Tools for ${role}` },

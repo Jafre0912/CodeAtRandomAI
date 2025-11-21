@@ -1,13 +1,11 @@
-# CodeAtRandom AI - Career Gap Analysis Tool
-
+# CodeAtRandom AI - Career Gap Analysis Tool:
 A full-stack application that helps developers analyze their skill gaps for specific roles (Frontend, Backend, Data Analyst) and generates a learning roadmap. It also integrates real-time tech news from HackerNews.
 
-## 🚀 Live Demo
-[Link to your hosted project here - e.g., Vercel Link]
+## Live Demo:
 
----
 
-## 🛠️ Tech Stack
+
+## Tech Stack:-
 
 **Frontend:**
 - React.js (Vite)
@@ -19,7 +17,3 @@ A full-stack application that helps developers analyze their skill gaps for spec
 - Node.js & Express.js
 - CORS & Dotenv
 - Mock Logic for AI Simulation
-
----
-
-## 📂 Project Structure

@@ -4,8 +4,6 @@ import {
   Newspaper, ArrowRight, Loader2, Code2 
 } from 'lucide-react';
 import { analyzeSkills, getRoadmap, fetchTopStories } from '../services/api';
-
-// --- Navbar Component ---
 const Navbar = () => (
   <nav className="sticky top-0 z-50 bg-white border-b border-gray-100">
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,7 +43,6 @@ const Dashboard = () => {
   const handleAnalysis = async () => {
     setLoading(true);
     setHasAnalyzed(true);
-    // Reset data while loading
     setSkillData(null); 
     setRoadmapData(null);
 
@@ -58,7 +55,6 @@ const Dashboard = () => {
       setRoadmapData(roadmapRes.data.roadmap);
     } catch (error) {
       console.warn("Backend unavailable, loading demo data.");
-      // Demo Data fallback
       setTimeout(() => {
         setSkillData({
             matched_skills: ["Java"],
@@ -82,8 +78,6 @@ const Dashboard = () => {
       <Navbar />
 
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        
-        {/* HERO SECTION */}
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
             Bridge your skill gap. <br/>
@@ -95,12 +89,8 @@ const Dashboard = () => {
             Enter your target role and current stack to get a personalized, AI-driven learning roadmap.
           </p>
         </div>
-
-        {/* INPUT CARD */}
         <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/60 border border-slate-100 p-2 max-w-3xl mx-auto mb-20">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-2 p-2">
-            
-            {/* Role Input */}
             <div className="md:col-span-5 bg-slate-50 rounded-xl px-4 py-2 border border-transparent focus-within:border-blue-500 focus-within:bg-white transition-all">
               <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Target Role</label>
               <input 
@@ -111,8 +101,6 @@ const Dashboard = () => {
                 placeholder="Full Stack Developer"
               />
             </div>
-            
-            {/* Skills Input */}
             <div className="md:col-span-5 bg-slate-50 rounded-xl px-4 py-2 border border-transparent focus-within:border-blue-500 focus-within:bg-white transition-all">
               <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Current Stack</label>
               <input 
@@ -123,8 +111,6 @@ const Dashboard = () => {
                 placeholder="React, Node.js, Git"
               />
             </div>
-
-            {/* Button */}
             <div className="md:col-span-2">
               <button 
                 onClick={handleAnalysis} 
@@ -136,11 +122,8 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-
-        {/* RESULTS AREA */}
         {hasAnalyzed && (
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-                {/* SKILL GAP */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
                     <div className="lg:col-span-4">
                         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm h-full">
@@ -179,8 +162,6 @@ const Dashboard = () => {
                             )}
                         </div>
                     </div>
-
-                    {/* ROADMAP */}
                     <div className="lg:col-span-8">
                         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
                              <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-6">
@@ -216,7 +197,6 @@ const Dashboard = () => {
             </div>
         )}
 
-        {/* NEWS GRID */}
         <div className="mt-20">
             <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
@@ -225,18 +205,31 @@ const Dashboard = () => {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {news.length > 0 ? news.map(n => (
-                    <a key={n.id} href={n.url} target="_blank" className="group block p-6 bg-white rounded-2xl border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                        <div className="flex justify-between items-start mb-4">
-                            <span className="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded">NEWS</span>
-                            <ArrowRight size={16} className="text-slate-300 group-hover:text-blue-600 -translate-x-2 group-hover:translate-x-0 transition-all opacity-0 group-hover:opacity-100"/>
+                    <a key={n.id} href={n.url} target="_blank" rel="noreferrer" className="group block p-6 bg-white rounded-2xl border border-slate-200 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
+                        <div>
+                            <div className="flex justify-between items-start mb-4">
+                                <span className="text-[10px] font-bold bg-slate-100 text-slate-600 px-2 py-1 rounded uppercase">
+                                    {n.type || 'NEWS'}
+                                </span>
+                                <ArrowRight size={16} className="text-slate-300 group-hover:text-blue-600 -translate-x-2 group-hover:translate-x-0 transition-all opacity-0 group-hover:opacity-100"/>
+                            </div>
+                            <h3 className="font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
+                                {n.title}
+                            </h3>
                         </div>
-                        <h3 className="font-bold text-slate-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
-                            {n.title}
-                        </h3>
-                        <p className="text-xs text-slate-400 mt-2">Recommended for you</p>
+                        
+                       
+                        <div className="mt-4 pt-4 border-t border-slate-50 flex items-center justify-between text-xs text-slate-400 font-medium">
+                            <div className="flex items-center gap-1">
+                                <span>{n.score} pts</span>
+                                <span>•</span>
+                                <span>by {n.by}</span>
+                            </div>
+                            <span>{new Date(n.time * 1000).toLocaleDateString()}</span>
+                        </div>
                     </a>
                 )) : (
-                    [1,2,3].map(i => <div key={i} className="h-40 bg-slate-100 animate-pulse rounded-2xl"></div>)
+                    [1,2,3].map(i => <div key={i} className="h-48 bg-slate-100 animate-pulse rounded-2xl"></div>)
                 )}
             </div>
         </div>
